@@ -1,0 +1,62 @@
+kitchen:  #autopilot used for progression through kitchen without frontend, using timers in seconds
+  autopilot:
+    enabled: true
+    cook-seconds: 10  #time from IN_PROGRESS to READY in seconds
+    handover-seconds: 5 #time from READR to HANDED_OVER in seconds
+
+
+spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false  #take this away if we want it in UNIX-epoch
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    client-id: kitchen-service
+
+    producer:
+      acks: all
+      retries: 5
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: true   # helps consumers to determine type
+
+    consumer:
+      group-id: kitchen-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+    listener:
+      ack-mode: record
+      # concurrency: 2   # fix later
+  application:
+    name: kitchen-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5436/kitchen
+    username: kitchen
+    password: kitchen
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop     # consider later switch to Flyway + validate
+    open-in-view: false
+    properties:
+      hibernate.jdbc.time_zone: UTC
+      hibernate.format_sql: true
+    generate-ddl: true
+    defer-datasource-initialization: true
+  sql:
+     init:
+       mode: always
+
+logging:
+  level:
+    org.hibernate.SQL: info
+    org.hibernate.orm.jdbc.bind: off
+    org.apache.kafka: warn
+    org.springframework.kafka: info
+
+server:
+  port: 8083

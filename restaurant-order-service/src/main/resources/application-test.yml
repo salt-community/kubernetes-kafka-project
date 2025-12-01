@@ -1,0 +1,42 @@
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+  sql:
+    init:
+      mode: never
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+  kafka:
+    producer:
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+    consumer:
+      auto-offset-reset: earliest
+
+
+app:
+  topic:
+    order:
+      created: ${TOPIC_ORDER_CREATED}
+      canceled: ${TOPIC_ORDER_CANCELED}
+    payment:
+      authorized: ${TOPIC_PAYMENT_AUTHORIZED}
+      refund: ${TOPIC_PAYMENT_REFUND}
+      failed: ${TOPIC_PAYMENT_FAILED}
+    kitchen:
+      inProgress: ${TOPIC_KITCHEN_IN_PROGRESS}
+      prepared: ${TOPIC_KITCHEN_PREPARED}
+      handedOver: ${TOPIC_KITCHEN_HANDED_OVER}
+      canceled: ${TOPIC_KITCHEN_CANCELED}
+      etaUpdated: ${TOPIC_KITCHEN_ETA_UPDATED}
+    delivery:
+      assigned: ${TOPIC_DELIVERY_ASSIGNED}
+      completed: ${TOPIC_DELIVERY_COMPLETED}
+
+
+

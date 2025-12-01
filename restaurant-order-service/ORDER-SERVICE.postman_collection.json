@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "5f58ecd3-a6bc-40d1-8c8a-b52f1d1a2b05",
+		"name": "ORDER-SERVICE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39194907"
+	},
+	"item": [
+		{
+			"name": "Order CREATE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\":[\n        {\n        \"itemId\":1,\n        \"quantity\":1,\n        \"price\": 99.00\n        }\n        ],\n    \"totalPrice\": 99    \n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}",
+					"host": [
+						"{{BASE_URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order CANCEL",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/cancel/{{orderId}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"cancel",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order All orders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"orderId\":\"2f4e5d0c-9a89-21d9-8029-0242ac120003\",\n  \"status\":\"paid\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}",
+					"host": [
+						"{{BASE_URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order By ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"orderId\":\"2f4e5d0c-9a89-21d9-8029-0242ac120003\",\n  \"status\":\"paid\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{orderId}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8081/api/"
+		},
+		{
+			"key": "orderId",
+			"value": ""
+		}
+	]
+}
