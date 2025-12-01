@@ -2,3 +2,5 @@ services:
   broker1:
     image: apache/kafka:latest
     container_name: broker
+    networks:
+      - k8-network
