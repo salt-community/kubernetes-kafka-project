@@ -1,5 +1,5 @@
 services:
-  broker1:
+  broker:
     image: apache/kafka:latest
     container_name: broker
     environment:
