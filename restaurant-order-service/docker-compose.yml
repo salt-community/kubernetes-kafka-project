@@ -1,4 +1,24 @@
 services:
+  app:
+    build: .
+    container_name: restaurant-order-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    # This loads the entire .env file into the container
+    env_file:
+      - .env
+    environment:
+      # Overrides to ensure the app talks to the 'postgres-db' container, not localhost
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      # Optional: If you need to point to specific Kafka brokers defined elsewhere
+      # SPRING_KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS}
+    networks:
+      - default
+      - kafka-net
   db:
     image: postgres:14
     container_name: postgres-db
@@ -11,8 +31,14 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - default
 
 volumes:
   db_data:
 
+networks:
+  kafka-net:
+    external: true
+    name: kubernetes-kafka-project_default
 
