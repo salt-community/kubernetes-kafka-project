@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: kafka-verifier
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKERS:localhost:9092}
+    consumer:
+      group-id: verifier-group
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+app:
+  topics: ${TARGET_TOPICS:test}
+  timeout: 300
