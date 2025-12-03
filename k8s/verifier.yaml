@@ -1,0 +1,34 @@
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: verifier
+spec:
+  ports:
+    - port: 80
+      targetPort: 8085
+  type: LoadBalancer
+  selector:
+    app: verifier
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: verifier
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: verifier
+  template:
+    metadata:
+      labels:
+        app: verifier
+    spec:
+      containers:
+        - name: verifier
+          image: verifier:latest
+          imagePullPolicy: Never
+#          envFrom:
+#            - secretRef:
+#                name: verifier-secrets
