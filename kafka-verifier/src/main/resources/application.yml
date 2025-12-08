@@ -11,7 +11,7 @@ spring:
 
 app:
   topics: ${TARGET_TOPICS:test}
-  timeout: 300
+  timeout: 30
 
 server:
   port: 8085

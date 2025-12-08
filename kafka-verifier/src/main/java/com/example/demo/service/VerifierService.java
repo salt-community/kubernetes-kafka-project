@@ -16,6 +16,8 @@ public class VerifierService {
     @KafkaListener(topics = "#{'${app.topics}'.split(',')}")
     public void listen(ConsumerRecord<?, ?> record) {
         lastSeen.put(record.topic(), Instant.now());
+        System.out.println("order created");
+
     }
 
     public Map<String, Instant> getLastSeenMap() {
