@@ -24,11 +24,8 @@ public class Event {
 
     public static Event fromConsumerRecord(ConsumerRecord<?, ?> record) {
         ObjectMapper mapper = new ObjectMapper();
-        String key = record.key().toString();
-        String value  = record.value().toString();
-
-        Event event =  mapper.readValue(value, Event.class);
-        event.setTopic(key);
+        Event event =  mapper.readValue(record.value().toString(), Event.class);
+        event.setTopic(record.topic());
         return event;
     }
 }
