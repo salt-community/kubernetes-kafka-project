@@ -5,7 +5,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,7 +21,7 @@ public class VerifierService {
         lastSeen.put(event.getId(), event);
     }
 
-    public Map<UUID, Event> getLastSeenMap() {
-        return lastSeen;
+    public List<Event> getEvents() {
+        return (List<Event>) lastSeen.values();
     }
 }
