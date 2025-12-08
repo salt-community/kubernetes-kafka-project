@@ -5,7 +5,7 @@ metadata:
   name: verifier
 spec:
   ports:
-    - port: 80
+    - port: 8085
       targetPort: 8085
   type: LoadBalancer
   selector:
@@ -29,6 +29,6 @@ spec:
         - name: verifier
           image: verifier:latest
           imagePullPolicy: Never
-#          envFrom:
-#            - secretRef:
-#                name: verifier-secrets
+          envFrom:
+            - secretRef:
+                name: verifier-secrets

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.service.VerifierService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,11 @@ public class StatusController {
 
     public StatusController(VerifierService service) {
         this.service = service;
+    }
+
+    @GetMapping
+    public ResponseEntity<Void> health() {
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/status")
