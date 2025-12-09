@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 spring:
   config:
     import: "optional:dotenv:./.env*"
@@ -7,16 +7,15 @@ spring:
     name: restaurant-order-service
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://aws-1-eu-north-1.pooler.supabase.com:5432/postgres?user=postgres.pyxhdyrbjjvmwkryexpc&password=saltpepper
-
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/order}
+  #    username: ${DB_USERNAME:order}
+  #    password: ${DB_PASSWORD:order}
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   kafka:
-    admin:
-      auto-create: true
-    bootstrap-servers: broker1:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     consumer:
       group-id: payment-service
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -33,21 +32,21 @@ spring:
 app:
   topic:
     order:
-      created: order.created
-      canceled: order.canceled
+      created: ${TOPIC_ORDER_CREATED}
+      canceled: ${TOPIC_ORDER_CANCELED}
     payment:
-#      authorized: ${TOPIC_PAYMENT_AUTHORIZED}
-#      refund: ${TOPIC_PAYMENT_REFUND}
-      failed: payment.failed
+      authorized: ${TOPIC_PAYMENT_AUTHORIZED}
+      refund: ${TOPIC_PAYMENT_REFUND}
+      failed: ${TOPIC_PAYMENT_FAILED}
     kitchen:
-#      inProgress: ${TOPIC_KITCHEN_IN_PROGRESS}
-#      prepared: ${TOPIC_KITCHEN_PREPARED}
-#      handedOver: ${TOPIC_KITCHEN_HANDED_OVER}
-      canceled: kitchen.canceled
-#      etaUpdated: ${TOPIC_KITCHEN_ETA_UPDATED}
-#    delivery:
-#      assigned: ${TOPIC_DELIVERY_ASSIGNED}
-#      completed: ${TOPIC_DELIVERY_COMPLETED}
+      inProgress: ${TOPIC_KITCHEN_IN_PROGRESS}
+      prepared: ${TOPIC_KITCHEN_PREPARED}
+      handedOver: ${TOPIC_KITCHEN_HANDED_OVER}
+      canceled: ${TOPIC_KITCHEN_CANCELED}
+      etaUpdated: ${TOPIC_KITCHEN_ETA_UPDATED}
+    delivery:
+      assigned: ${TOPIC_DELIVERY_ASSIGNED}
+      completed: ${TOPIC_DELIVERY_COMPLETED}
 
 
 
