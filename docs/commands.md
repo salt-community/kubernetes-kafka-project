@@ -37,18 +37,20 @@ kubectl apply -f k8s/verifier.yaml
 
 ## 4. Dashboard
 
+### Install Dashboard
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
 ```
 
+### Apply Kubernetes Configurations
 ```bash
 kubectl apply -f k8s/dashboard-admin.yml
 ```
-
+### Start Local Kubernetes API proxy
 ```bash
 kubectl proxy
 ```
-
+### Generate Token To Access Dashboard
 ```bash
 kubectl -n kubernetes-dashboard create token admin-user
 ```
