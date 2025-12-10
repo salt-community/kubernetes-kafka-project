@@ -17,7 +17,7 @@ kind: Deployment
 metadata:
   name: order-service
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: order-service
@@ -33,3 +33,8 @@ spec:
           envFrom:
             - secretRef:
                 name: order-service-secrets
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name

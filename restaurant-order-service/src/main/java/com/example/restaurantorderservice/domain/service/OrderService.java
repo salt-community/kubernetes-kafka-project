@@ -37,6 +37,9 @@ public class OrderService {
     @Value("${app.topic.order.canceled}")
     private String topicOrderCanceled;
 
+    @Value("${POD_NAME:unknown}")
+    private String podName;
+
     public OrderService(OrderRepository orderRepository, ItemRepository itemRepository, OutboxRepository outboxRepository, ObjectMapper mapper) {
         this.orderRepository = orderRepository;
         this.itemRepository = itemRepository;
@@ -87,8 +90,11 @@ public class OrderService {
 
     private void buildOrderEvent(Order order, String topic) {
         UUID eventId = UUID.randomUUID();
+
+        String trimmedPodName = podName.substring(Math.max(podName.length() - 5, 0));
+
         String payload = mapToJson(
-            KafkaMessageDto.fromOrder(order, eventId)
+            KafkaMessageDto.fromOrder(order, eventId, trimmedPodName)
         );
         outboxRepository.save(OutboxEvent.builder()
             .eventId(eventId)

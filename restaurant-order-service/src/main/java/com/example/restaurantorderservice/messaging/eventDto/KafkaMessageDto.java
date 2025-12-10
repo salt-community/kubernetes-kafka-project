@@ -16,16 +16,18 @@ public record KafkaMessageDto(
     @NotNull OrderStatus orderStatus,
     @NotNull Instant createdAt,
     @Min(0) double totalPrice,
-    @NotNull @NotEmpty List<KafkaMessageItemDto> items
+    @NotNull @NotEmpty List<KafkaMessageItemDto> items,
+    @NotNull String replicaOrigin
 ) {
-    public static KafkaMessageDto fromOrder(Order order, UUID eventId) {
+    public static KafkaMessageDto fromOrder(Order order, UUID eventId, String replicaOrigin) {
         return new KafkaMessageDto(
             eventId,
             order.getOrderId(),
             order.getOrderStatus(),
             order.getCreatedAt(),
             order.getTotalPrice(),
-            order.getItems().stream().map(KafkaMessageItemDto::fromItem).toList()
+            order.getItems().stream().map(KafkaMessageItemDto::fromItem).toList(),
+            replicaOrigin
         );
     }
 }
