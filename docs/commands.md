@@ -38,6 +38,14 @@ kubectl apply -f k8s/verifier.yaml
 ## 4. Dashboard
 
 ```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+```
+
+```bash
+kubectl apply -f k8s/dashboard-admin.yml
+```
+
+```bash
 kubectl proxy
 ```
 
@@ -45,4 +53,4 @@ kubectl proxy
 kubectl -n kubernetes-dashboard create token admin-user
 ```
 
-[Dashboard](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy)
+# [Go To Dashboard](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy)
