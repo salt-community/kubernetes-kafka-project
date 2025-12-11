@@ -28,6 +28,15 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    @GetMapping("/health")
+    public ResponseEntity<String> health() {
+        int j = 0;
+        for (int i = 0; i < 100000; i++) {
+            j += 1;
+        }
+        return ResponseEntity.ok().body(Integer.toString(j));
+    }
+
     @Operation(
         summary = "Creating/placing order",
         description = "Should respond with OrderId"
