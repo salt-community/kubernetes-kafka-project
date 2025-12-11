@@ -3,7 +3,7 @@ import { check, sleep } from 'k6';
 
 export const options = {
     stages: [
-        { duration: '30s', target: 50 },   // ramp to 50 VUs
+        { duration: '15s', target: 100 },   // ramp to 50 VUs
     ],
 };
 
@@ -15,5 +15,5 @@ export default function () {
         'has body': (r) => r.body && r.body.length > 0,
     });
 
-    sleep(1);
+    sleep(0.05);
 }
