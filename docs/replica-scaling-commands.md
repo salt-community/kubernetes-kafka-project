@@ -23,7 +23,7 @@ kubectl get pods -l app=order-service
 
 ## 3. Start CPU Burner
 ```bash
-kubectl exec order-service-**** -- sh -c "yes > /dev/null &"
+kubectl exec <unknown> -- sh -c "yes > /dev/null &"
 ```
 
 ## 4. Watch HPA in Realtime
