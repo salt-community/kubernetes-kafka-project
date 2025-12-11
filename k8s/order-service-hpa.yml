@@ -14,8 +14,8 @@ spec:
     resource:
       name: cpu
       target:
-        type: Utilization
-        averageUtilization: 55
+        type: AverageValue        # Changed from Utilization
+        averageValue: 500m        # 500 millicores = 50% of 1 core
   behavior:
     scaleDown:
       stabilizationWindowSeconds: 20
